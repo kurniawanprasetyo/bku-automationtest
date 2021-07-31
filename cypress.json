@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://web-staging.bersamaku.id",
+    "baseUrl": "YOUR_WEB_APP_DOMAIN",
     "chromeWebSecurity": false,
     "nodeVersion": "system"
 }

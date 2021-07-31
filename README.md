@@ -11,3 +11,5 @@ cd to cypress-bku
 
 npm i
 ```
+
+Setelah cypress terinstall, maka buatlah file `cypress.env.json` di root folder ini untuk mengisi environment variable yang diperlukan. Dan juga tambahkan domain/URL web yang akan dites di file `cypress.json`

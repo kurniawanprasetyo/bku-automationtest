@@ -73,6 +73,7 @@ web_modules/
 .env
 .env.test
 .env.production
+cypress.env.json
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -116,3 +117,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+.DS_Store
