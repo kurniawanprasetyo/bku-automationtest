@@ -26,18 +26,17 @@ Cypress.Commands.add('datepicker', (date) =>{
             chooseYear = chooseMonthYear.split(' ')[1];
             cy.log(chooseYear);
         })
-        cy.log(chooseMonth)
-        cy.log(chooseYear)
         
-            // if (chooseMonth !== month || chooseYear !== year){
-            //     console.log("OKE");
-            //     cy.get('.react-datepicker__navigation--next').click();
-            //     cy.get('.react-datepicker__current-month').invoke('text')
-            //         .then((yearMonth) => {
-            //             chooseMonth = yearMonth.split(' ')[0];
-            //             console.log(chooseMonth)
-            //             chooseYear = yearMonth.split(' ')[1];
-            //             console.log(chooseYear)
-            //         })
-            //     }
+            while (chooseMonth !== month || chooseYear !== year){
+                console.log("OKE");
+                cy.get('.react-datepicker__navigation--next').click();
+                cy.get('.react-datepicker__current-month').invoke('text')
+                    .then((yearMonth) => {
+                        chooseMonth = yearMonth.split(' ')[0];
+                        console.log(chooseMonth)
+                        chooseYear = yearMonth.split(' ')[1];
+                        console.log(chooseYear)
+                    })
+                break;
+                }
 })
