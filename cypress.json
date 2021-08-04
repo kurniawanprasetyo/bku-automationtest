@@ -5,6 +5,8 @@
         "CollectionAgent.spec.js",
         "TransactionConfig.spec.js",
         "VirtualAccount.spec.js",
-        "CashIn.spec.js"
+        "CashIn.spec.js",
+        "Routing.spec.js",
+        "Fee.spec.js"
       ]
 }
