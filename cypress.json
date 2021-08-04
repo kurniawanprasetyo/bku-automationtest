@@ -1,5 +1,10 @@
 {
-    "baseUrl": "YOUR_WEB_APP_DOMAIN",
+    "baseUrl": "https://web-staging.bersamaku.id/auth/login",
     "chromeWebSecurity": false,
-    "nodeVersion": "system"
+    "testFiles": [
+        "CollectionAgent.spec.js",
+        "TransactionConfig.spec.js",
+        "VirtualAccount.spec.js",
+        "CashIn.spec.js"
+      ]
 }
