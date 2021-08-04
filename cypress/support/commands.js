@@ -1,25 +1,43 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('generate_random_number', (length) => { 
+    let random_number = '';
+    var possible = "0123456789";
+    for (var i = 0; i < length; i++){
+        random_number += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return random_number
+   });
+
+Cypress.Commands.add('datepicker', (date) =>{
+    var day = date.split('-')[0];
+    console.log(day);
+    var month = date.split('-')[1];
+    console.log(month);
+    var year = date.split('-')[2];
+    console.log(year);
+    
+    var chooseMonth = ''
+    var chooseYear = ''
+
+    cy.get('.react-datepicker__current-month').invoke('text')
+        .then((yearMonth) => {
+            var chooseMonthYear = yearMonth;
+            chooseMonth = chooseMonthYear.split(' ')[0];
+            cy.log(chooseMonth);
+            chooseYear = chooseMonthYear.split(' ')[1];
+            cy.log(chooseYear);
+        })
+        cy.log(chooseMonth)
+        cy.log(chooseYear)
+        
+            // if (chooseMonth !== month || chooseYear !== year){
+            //     console.log("OKE");
+            //     cy.get('.react-datepicker__navigation--next').click();
+            //     cy.get('.react-datepicker__current-month').invoke('text')
+            //         .then((yearMonth) => {
+            //             chooseMonth = yearMonth.split(' ')[0];
+            //             console.log(chooseMonth)
+            //             chooseYear = yearMonth.split(' ')[1];
+            //             console.log(chooseYear)
+            //         })
+            //     }
+})
