@@ -27,15 +27,15 @@ describe('Routing', function(){
         cy.get('select[name=destination_code]').select(this.userdata.destination_code);
         cy.get('select[name=transaction_type]').select('C2C');
         //Still Confusing Handle datepicker
-        //cy.get('[name="start_date"]').click();
-        //cy.datepicker('28-November-2021');
-        cy.get('select[name=mitra_id]').select(this.userdata.mitra_id);
-        cy.get('select[name=flag_auto_route]').select('INACTIVE');
-        //Klik cancel for temporary
-        cy.contains('Cancel').click();
-        //Log Out
-        cy.get('.btn > .symbol > .symbol-label').click();
-        cy.get('.navi-footer > .btn').click();
+        cy.get('[name="start_date"]').click();
+        cy.datepicker('28-November-2021');
+        // cy.get('select[name=mitra_id]').select(this.userdata.mitra_id);
+        // cy.get('select[name=flag_auto_route]').select('INACTIVE');
+        // //Klik cancel for temporary
+        // cy.contains('Cancel').click();
+        // //Log Out
+        // cy.get('.btn > .symbol > .symbol-label').click();
+        // cy.get('.navi-footer > .btn').click();
         
     })
 })
