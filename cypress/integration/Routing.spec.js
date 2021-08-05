@@ -1,9 +1,9 @@
 describe('Routing', function(){
     beforeEach(function(){
-        cy.visit('/auth/login')
-        //Login as admin
-        cy.get('input[name=user]').type(Cypress.env('username_admin'));
-        cy.get('input[name=password]').type(Cypress.env('password_admin'));
+        cy.fixture('Authentication')
+        .then(logindata =>{
+            this.logindata = logindata;
+        })
         cy.fixture('CollectionAgent')
         .then(userdata =>{
             this.userdata = userdata;
@@ -11,7 +11,8 @@ describe('Routing', function(){
     })
 
     it('Create Routing', function(){
-        cy.contains('Sign In').click();
+        //Login
+        cy.login(this.logindata.admin_username, this.logindata.admin_password);
         //Go to virtual account menu
         cy.contains('Routing and Destination').click();
         cy.get(':nth-child(13) > .menu-submenu > .menu-subnav > :nth-child(1) > .menu-link > .menu-text').click()
@@ -25,7 +26,7 @@ describe('Routing', function(){
         //Still Confusing Handle datepicker
         // cy.get('[name="start_date"]').click();
         cy.get('input[name="start_date"]').invoke('val').then((text) => {
-            expect('2021-08-06').to.equal(text);
+            expect(this.userdata.begin_date).to.equal(text);
         });
         cy.get('input[name="end_date"]').clear();
         for(let n = 0; n < 12; n ++){
@@ -33,7 +34,7 @@ describe('Routing', function(){
         }
         cy.get('div.react-datepicker__day.react-datepicker__day--006').first().click()
         cy.get('input[name="end_date"]').invoke('val').then((text) => {
-            expect('2022-08-06').to.equal(text);
+            expect(this.userdata.end_date).to.equal(text);
         });
         // cy.get('input[name="end_date"]').clear().click().type('2022-08-05', {force: true}).trigger('change');
         // cy.get('input[name="end_date"]').invoke('val', '2022-08-05').trigger('change').then((text) => {
@@ -41,13 +42,13 @@ describe('Routing', function(){
         //     console.log(text);
         // });
         // cy.datepicker('28-November-2021');
-        // cy.get('select[name=mitra_id]').select(this.userdata.mitra_id);
-        // cy.get('select[name=flag_auto_route]').select('INACTIVE');
-        // //Klik cancel for temporary
-        // cy.contains('Cancel').click();
-        // //Log Out
-        // cy.get('.btn > .symbol > .symbol-label').click();
-        // cy.get('.navi-footer > .btn').click();
+        cy.get('select[name=mitra_id]').select(this.userdata.mitra_id);
+        cy.get('select[name=flag_auto_route]').select('INACTIVE');
+        //Klik cancel for temporary
+        cy.contains('Submit').click();
+        //Log Out
+        cy.get('.btn > .symbol > .symbol-label').click();
+        cy.get('.navi-footer > .btn').click();
         
     })
 })
