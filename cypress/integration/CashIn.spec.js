@@ -1,23 +1,20 @@
 describe('Cash In', function(){
     beforeEach(function(){
-        cy.visit('/auth/login')
         cy.fixture('Authentication')
-        .then(testdata => {
-            this.testdata = testdata;
+        .then(logindata =>{
+            this.logindata = logindata;
         })
         cy.fixture('CollectionAgent')
         .then(userdata =>{
             this.userdata = userdata;
         })
-    })
+      })
 
     var idRequest =''
 
     it('Request Cash In', function(){
         //Login as maker
-        cy.get('input[name=user]').type(this.testdata.maker_username);
-        cy.get('input[name=password]').type(this.testdata.maker_password);
-        cy.contains('Sign In').click();
+        cy.login(this.logindata.maker_username, this.logindata.maker_password);
         //Go to cash in menu
         cy.contains('Virtual Account').click();
         cy.contains('Cash In').click();
@@ -40,9 +37,7 @@ describe('Cash In', function(){
     })
     it('Checked Cash in', function(){
         //Login as checker
-        cy.get('input[name=user]').type(this.testdata.checker_username);
-        cy.get('input[name=password]').type(this.testdata.checker_password);
-        cy.contains('Sign In').click();
+        cy.login(this.logindata.checker_username, this.logindata.checker_password);
         //Go to menu approval virtual account
         cy.contains('Approval').click();
         cy.contains('Approval Virtual Account').click();
@@ -60,9 +55,7 @@ describe('Cash In', function(){
     })
     it('Approved Cash in', function(){
         //Login as approval
-        cy.get('input[name=user]').type(this.testdata.approval_username);
-        cy.get('input[name=password]').type(this.testdata.approval_password);
-        cy.contains('Sign In').click();
+        cy.login(this.logindata.approval_username, this.logindata.approval_password);
         //Go to approval virtual account menu
         cy.contains('Approval').click();
         cy.contains('Approval Virtual Account').click();
