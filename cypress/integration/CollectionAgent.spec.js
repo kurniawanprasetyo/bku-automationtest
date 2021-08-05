@@ -1,21 +1,18 @@
 describe('Collection Agent', function(){
     beforeEach(function(){
-        cy.visit('/auth/login')
-        cy.fixture('Authentication')
-        .then(testdata => {
-            this.testdata = testdata;
-        })
-        cy.fixture('CollectionAgent')
-        .then(userdata =>{
-            this.userdata = userdata;
-        })
+      cy.fixture('Authentication')
+      .then(logindata =>{
+          this.logindata = logindata;
+      })
+      cy.fixture('CollectionAgent')
+      .then(userdata =>{
+          this.userdata = userdata;
+      })
     })
 
     it('Create CA', function(){
-        //Login as admin
-        cy.get('input[name=user]').type(this.testdata.admin_username);
-        cy.get('input[name=password]').type(this.testdata.admin_password);
-        cy.contains('Sign In').click();
+        //Login
+        cy.login(this.logindata.admin_username, this.logindata.admin_password);
         //Go to menu institution
         cy.get('.menu-nav > :nth-child(9) > .menu-link > .menu-text').click();
         cy.get('#dropdown-toggle-top').click();
