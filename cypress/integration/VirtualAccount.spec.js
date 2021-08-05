@@ -1,9 +1,8 @@
 describe('Virtual Account', function(){
     beforeEach(function(){
-        cy.visit('/auth/login')
         cy.fixture('Authentication')
-        .then(testdata => {
-            this.testdata = testdata;
+        .then(logindata =>{
+            this.logindata = logindata;
         })
         cy.fixture('CollectionAgent')
         .then(userdata =>{
@@ -13,9 +12,7 @@ describe('Virtual Account', function(){
 
     it('Create Virtual Account', function(){
         //Login as admin
-        cy.get('input[name=user]').type(this.testdata.admin_username);
-        cy.get('input[name=password]').type(this.testdata.admin_password);
-        cy.contains('Sign In').click();
+        cy.login(this.logindata.admin_username, this.logindata.admin_password);
         //Go to virtual account menu
         cy.get(':nth-child(10) > .menu-toggle > .menu-text').click();
         cy.get(':nth-child(10) > .menu-submenu > .menu-subnav > :nth-child(1) > .menu-link > .menu-text').click();
