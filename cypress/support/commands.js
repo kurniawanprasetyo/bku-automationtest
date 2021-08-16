@@ -43,8 +43,22 @@ Cypress.Commands.add('generate_random_number', (length) => {
 
 Cypress.Commands.add('login', (username, password) => {
     cy.visit('/auth/login')
-        //Login as admin
-    cy.get('input[name=user]').type(username);
-    cy.get('input[name=password]').type(password);
-    cy.contains('Sign In').click();
+    cy.get('.font-size-h1')
+        .should('be.visible')
+        .then(($font) => {
+            expect($font).to.have.text('Login Account')
+        })
+    //Login as admin
+    cy.get('input[name=user]')
+        .should('be.visible')
+        .type(username);
+    cy.get('input[name=password]')
+        .should('be.visible')
+        .type(password);
+    cy.contains('Sign In')
+        .should('be.visible')
+        .then(($login) => {
+            expect($login).to.have.text('Sign In')
+        })
+        .click();
 })
