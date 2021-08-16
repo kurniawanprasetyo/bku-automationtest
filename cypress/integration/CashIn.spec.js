@@ -15,15 +15,41 @@ describe('Cash In', function(){
     it('Request Cash In', function(){
         //Login as maker
         cy.login(this.logindata.maker_username, this.logindata.maker_password);
+        cy.get('#kt_header_menu_wrapper > .font-weight-bold').then(($header) => {
+            expect($header).to.have.text('Bersama Kirim Uang')
+        })
         //Go to cash in menu
         cy.contains('Virtual Account').click();
+        cy.get(':nth-child(3) > .menu-submenu > .menu-subnav > .menu-item ').should(($submenu) => {
+            expect($submenu).to.have.length(5)
+            expect($submenu.first()).to.contain('Cash In')
+            expect($submenu.last()).to.contain('Monitoring Balance')
+        })
         cy.contains('Cash In').click();
-        cy.contains('button', 'Cash In').click();
+        cy.get('.card-label').then(($listrouting) => {
+            expect($listrouting).to.have.text('Cash In List')
+        })
+        cy.contains('button', 'Cash In')
+            .should('be.visible')
+            .click();
         //Request Cash In
-        cy.get('select[name=va_id]').select(this.userdata.va_id);
-        cy.get('input[name=amount]').type("100000000");
-        cy.get('textarea[name=remarks]').type("Automation using cypress");
-        cy.contains('button', 'Submit').click();
+        cy.get('.modal-title').then(($form) => {
+            expect($form).to.have.text('Cash In')
+        })
+        cy.get('select[name=va_id]').select('30089100936000201');
+        cy.get('input[name=amount]').type('100000000');
+        cy.get('textarea[name=remarks]').type('Automation using cypress');
+        cy.contains('Cancel')
+            .should('be.visible');
+        cy.contains('Submit')
+            .should('be.visible')
+            .click();
+        cy.get('.MuiPaper-root')
+            .should('have.css', 'background-color')
+            .and('eq', 'rgb(76, 175, 80)')        
+        cy.get('.MuiAlert-message').then(($message) => {
+            expect($message).to.contain('Successfully Create Approval CASH-IN')
+        })
         cy.get('.MuiAlert-message').invoke('text')
         .then((id) => {
             var splitText = id.split(' ')
@@ -31,6 +57,7 @@ describe('Cash In', function(){
             idRequest = splitText[splitText.length-1]
             console.log(idRequest)
         })
+        console.log(idRequest)
         //Log Out
         cy.get('.btn > .symbol > .symbol-label').click();
         cy.get('.navi-footer > .btn').click();
@@ -42,13 +69,29 @@ describe('Cash In', function(){
         cy.contains('Approval').click();
         cy.contains('Approval Virtual Account').click();
         //Checked
+        cy.get('.card-label').then(($listrouting) => {
+            expect($listrouting).to.have.text('Approval Virtual Account List')
+        })
         cy.contains('div', idRequest)
             .parents('tr').within(() => {
                 cy.get(':nth-child(11)').children('.btn-hover-warning')
                 .click();
             })
+        cy.get('.modal-title').then(($form) => {
+            expect($form).to.have.text('Update Approval CASH IN')
+        })
         cy.get('select[name=next_state]').select('checked');
-        cy.contains('Submit').click();
+        cy.contains('Cancel')
+            .should('be.visible');
+        cy.contains('Submit')
+            .should('be.visible')
+            .click();
+        cy.get('.MuiPaper-root')
+            .should('have.css', 'background-color')
+            .and('eq', 'rgb(76, 175, 80)')        
+        cy.get('.MuiAlert-message').then(($message) => {
+            expect($message).to.contain('Successfully Update Approval CASH-IN '+idRequest)
+        })
         //Log Out
         cy.get('.btn > .symbol > .symbol-label').click();
         cy.get('.navi-footer > .btn').click();
@@ -60,12 +103,28 @@ describe('Cash In', function(){
         cy.contains('Approval').click();
         cy.contains('Approval Virtual Account').click();
         //Approved
+        cy.get('.card-label').then(($listrouting) => {
+            expect($listrouting).to.have.text('Approval Virtual Account List')
+        })
         cy.contains('div', idRequest) 
             .parents('tr').within(() => {
                 cy.get(':nth-child(11)').children('.btn-hover-warning')
                 .click();
             })
+        cy.get('.modal-title').then(($form) => {
+            expect($form).to.have.text('Update Approval CASH IN')
+        })
         cy.get('select[name=next_state]').select('approved');
-        cy.contains('Submit').click();
+        cy.contains('Cancel')
+            .should('be.visible');
+        cy.contains('Submit')
+            .should('be.visible')
+            .click();
+        cy.get('.MuiPaper-root')
+            .should('have.css', 'background-color')
+            .and('eq', 'rgb(76, 175, 80)')        
+        cy.get('.MuiAlert-message').then(($message) => {
+            expect($message).to.contain('Successfully Update Approval CASH-IN '+idRequest)
+        })
     })
 })

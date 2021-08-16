@@ -14,11 +14,30 @@ describe('Routing', function(){
         //Login
         cy.login(this.logindata.admin_username, this.logindata.admin_password);
         //Go to virtual account menu
+        cy.get('#kt_header_menu_wrapper > .font-weight-bold').then(($header) => {
+            expect($header).to.have.text('Bersama Kirim Uang')
+        })
         cy.contains('Routing and Destination').click();
-        cy.get(':nth-child(13) > .menu-submenu > .menu-subnav > :nth-child(1) > .menu-link > .menu-text').click()
-        cy.contains('New Routing').click();
-        cy.contains('Form').click();
+        cy.get(':nth-child(13) > .menu-submenu > .menu-subnav > .menu-item ').should(($submenu) => {
+            expect($submenu).to.have.length(4)
+            expect($submenu.first()).to.contain('Routing')
+            expect($submenu.last()).to.contain('987 Config')
+        })
+        cy.get(':nth-child(13) > .menu-submenu > .menu-subnav > :nth-child(1) > .menu-link > .menu-text').click();
+        cy.get('.card-label').then(($listrouting) => {
+            expect($listrouting).to.have.text('Routing List')
+        })
+        cy.contains('New Routing')
+            .should('be.visible')
+            .click();
+        cy.contains('Form')
+            .should('be.visible')
+            .click();
         //Fill form
+        cy.get('.modal-title').then(($form) => {
+            expect($form).to.have.text('New Routing')
+        })
+        cy.get('input[name=is_auto_route]').click();
         cy.get('select[name=ca_id]').first().select(this.userdata.institution_id);
         cy.get('select[name=feature]').select(this.userdata.feature);
         cy.get('select[name=destination_code]').select(this.userdata.destination_code);
@@ -30,9 +49,12 @@ describe('Routing', function(){
         });
         cy.get('input[name="end_date"]').clear();
         for(let n = 0; n < 12; n ++){
-            cy.get('button.react-datepicker__navigation.react-datepicker__navigation--next').click()
+            cy.get('button.react-datepicker__navigation.react-datepicker__navigation--next').click();
         }
-        cy.get('div.react-datepicker__day.react-datepicker__day--006').first().click()
+        var splitdate = this.userdata.end_date.split('-');
+        var date = splitdate[splitdate.length-1];
+        //date = date.replace(/^[0]+/g,"");
+        cy.get('div.react-datepicker__day.react-datepicker__day--0'+date+'').first().click();
         cy.get('input[name="end_date"]').invoke('val').then((text) => {
             expect(this.userdata.end_date).to.equal(text);
         });
@@ -43,12 +65,25 @@ describe('Routing', function(){
         // });
         // cy.datepicker('28-November-2021');
         cy.get('select[name=mitra_id]').select(this.userdata.mitra_id);
-        cy.get('select[name=flag_auto_route]').select('INACTIVE');
         //Klik cancel for temporary
-        cy.contains('Submit').click();
+        cy.contains('Cancel')
+            .should('be.visible');
+        cy.contains('Submit')
+            .should('be.visible')
+            .click();
+        cy.get('.MuiPaper-root')
+            .should('have.css', 'background-color')
+            .and('eq', 'rgb(76, 175, 80)')        
+        cy.get('.MuiAlert-message').then(($message) => {
+            expect($message).to.have.text('Successfully Create Data Routing')
+        })
         //Log Out
         cy.get('.btn > .symbol > .symbol-label').click();
         cy.get('.navi-footer > .btn').click();
-        
+        cy.get('.font-size-h1')
+        .should('be.visible')
+        .then(($font) => {
+            expect($font).to.have.text('Login Account')
+        })
     })
 })
