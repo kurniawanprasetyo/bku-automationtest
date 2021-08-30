@@ -8,5 +8,7 @@
         "CashIn.spec.js",
         "Routing.spec.js",
         "Fee.spec.js"
-      ]
+      ],
+    "video": false,
+    "screenshotOnRunFailure": false
 }
