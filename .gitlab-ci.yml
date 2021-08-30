@@ -37,4 +37,4 @@ api-tests:
   stage: test
   script:
     - yarn add cypress -dev
-    - npx cypress run --browser chrome --spec "cypress/integration/Routing.js"
+    - npx cypress run --browser chrome --spec "cypress/integration/Routing.spec.js"
