@@ -7,6 +7,11 @@
         "VirtualAccount.spec.js",
         "CashIn.spec.js",
         "Routing.spec.js",
-        "Fee.spec.js"
+        "Fee.spec.js",
+        "987Config.spec.js",
+        "UserManagement.spec.js",
+        "RemainingBalance.spec.js",
+        "Destination.spec.js",
+        "TransferToCreditMapping.spec.js"
       ]
 }
