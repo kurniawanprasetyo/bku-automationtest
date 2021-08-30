@@ -37,35 +37,25 @@ describe('Routing', function(){
         cy.get('.modal-title').then(($form) => {
             expect($form).to.have.text('New Routing')
         })
-        cy.get('input[name=is_auto_route]').click();
+        // cy.get('input[name=is_auto_route]').click();
         cy.get('select[name=ca_id]').first().select(this.userdata.institution_id);
-        cy.get('select[name=feature]').select(this.userdata.feature);
-        cy.get('select[name=destination_code]').select(this.userdata.destination_code);
-        cy.get('select[name=transaction_type]').select('C2C');
-        //Still Confusing Handle datepicker
-        // cy.get('[name="start_date"]').click();
         cy.get('input[name="start_date"]').invoke('val').then((text) => {
             expect(this.userdata.begin_date).to.equal(text);
         });
         cy.get('input[name="end_date"]').clear();
-        for(let n = 0; n < 12; n ++){
+        for(let n = 0; n < 13; n ++){
             cy.get('button.react-datepicker__navigation.react-datepicker__navigation--next').click();
         }
         var splitdate = this.userdata.end_date.split('-');
         var date = splitdate[splitdate.length-1];
-        //date = date.replace(/^[0]+/g,"");
         cy.get('div.react-datepicker__day.react-datepicker__day--0'+date+'').first().click();
         cy.get('input[name="end_date"]').invoke('val').then((text) => {
             expect(this.userdata.end_date).to.equal(text);
         });
-        // cy.get('input[name="end_date"]').clear().click().type('2022-08-05', {force: true}).trigger('change');
-        // cy.get('input[name="end_date"]').invoke('val', '2022-08-05').trigger('change').then((text) => {
-        //     // expect('2022-08-05').to.equal(text);
-        //     console.log(text);
-        // });
-        // cy.datepicker('28-November-2021');
+        cy.get('select[name=destination_code]').select(this.userdata.destination_code);
+        cy.get('select[name=transaction_type]').select('C2C');
+        cy.get('select[name=feature]').select(this.userdata.feature);
         cy.get('select[name=mitra_id]').select(this.userdata.mitra_id);
-        //Klik cancel for temporary
         cy.contains('Cancel')
             .should('be.visible');
         cy.contains('Submit')
@@ -78,12 +68,12 @@ describe('Routing', function(){
             expect($message).to.have.text('Successfully Create Data Routing')
         })
         //Log Out
-        cy.get('.btn > .symbol > .symbol-label').click();
-        cy.get('.navi-footer > .btn').click();
-        cy.get('.font-size-h1')
-        .should('be.visible')
-        .then(($font) => {
-            expect($font).to.have.text('Login Account')
-        })
+        // cy.get('.btn > .symbol > .symbol-label').click();
+        // cy.get('.navi-footer > .btn').click();
+        // cy.get('.font-size-h1')
+        // .should('be.visible')
+        // .then(($font) => {
+        //     expect($font).to.have.text('Login Account')
+        // })
     })
 })
