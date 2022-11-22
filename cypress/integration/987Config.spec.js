@@ -12,21 +12,21 @@ describe('987 Config', function(){
 
     it('Add 987 Config', function(){
     //Login
-    cy.login(this.logindata.admin_username, this.logindata.admin_password);
+    cy.login(this.logindata.approval_username, this.logindata.approval_password);
     cy.get('#kt_header_menu_wrapper > .font-weight-bold').then(($header) => {
         expect($header).to.have.text('Bersama Kirim Uang')
     })
     //Go to menu 987 Config
     cy.contains('Routing and Destination').click();
-    cy.get(':nth-child(13) > .menu-submenu > .menu-subnav > .menu-item ').should(($submenu) => {
-        expect($submenu).to.have.length(4)
+    cy.get(':nth-child(15) > .menu-submenu > .menu-subnav > .menu-item').should(($submenu) => {
+        expect($submenu).to.have.length(5   )
         expect($submenu.first()).to.contain('Routing')
-        expect($submenu.last()).to.contain('987 Config')
+        expect($submenu.last()).to.contain('BTOP Feature Code')
     })
     cy.contains('987 Config').click();
-    cy.get('.card-label').then(($listrouting) => {
-        expect($listrouting).to.have.text('987 Config List')
-    })
+    // cy.get('.card-label').then(($listrouting) => {
+    //     expect($listrouting).to.have.text('987 Config List')
+    // })
     cy.contains('New 987 Config')
         .should('be.visible')
         .click();

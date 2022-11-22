@@ -12,19 +12,19 @@ describe('Virtual Account', function(){
 
     it('Create Virtual Account', function(){
         //Login as admin
-        cy.login(this.logindata.admin_username, this.logindata.admin_password);
+        cy.login(this.logindata.approval_username, this.logindata.approval_password);
         cy.get('#kt_header_menu_wrapper > .font-weight-bold').then(($header) => {
             expect($header).to.have.text('Bersama Kirim Uang')
-        })
+        })  
         //Go to virtual account menu
-        cy.get(':nth-child(10) > .menu-toggle > .menu-text').click();
-        cy.get(':nth-child(10) > .menu-submenu > .menu-subnav > .menu-item ').should(($submenu) => {
+        cy.get(':nth-child(12) > .menu-toggle > .menu-text').click();
+        cy.get(':nth-child(12) > .menu-submenu > .menu-subnav > .menu-item ').should(($submenu) => {
             expect($submenu).to.have.length(2)
             expect($submenu.first()).to.contain('Virtual Account')
-            expect($submenu.last()).to.contain('Remaining Balance')
+            expect($submenu.last()).to.contain('Threshold Balance')
         })
-        cy.get(':nth-child(10) > .menu-submenu > .menu-subnav > :nth-child(1) > .menu-link > .menu-text').click();
-        cy.get('.card-label').then(($listva) => {
+        cy.get(':nth-child(12) > .menu-submenu > .menu-subnav > :nth-child(1) > .menu-link > .menu-text').click();
+        cy.get('h3 > b').then(($listva) => {
             expect($listva).to.have.text('Virtual Account List')
         })
         cy.contains('New Virtual Account')
@@ -46,11 +46,14 @@ describe('Virtual Account', function(){
         cy.contains('Submit')
             .should('be.visible')
             .click();
+        cy.get('.MuiSnackbar-root > .MuiPaper-root')
+            .should('have.css', 'background-color')
+            .and('eq', 'rgb(76, 175, 80)')    
         cy.get('.MuiAlert-message').then(($message) => {
-            expect($message).to.have.text('Successfully Create Virtual Account '+this.userdata.va_name+'('+this.userdata.va_id+')')
+            expect($message).to.have.text('Successfully Create Virtual Account')
         })
         //Log Out
-        cy.get('.btn > .symbol > .symbol-label').click();
+        cy.get('.topbar-item > .btn').click();
         cy.get('.navi-footer > .btn').click();
     })
 })

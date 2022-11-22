@@ -17,16 +17,16 @@ describe('Transaction Config', function(){
         })
         //Go to transaction config menu
         cy.contains('Transaction Config').click();
-        cy.get('.card-label').then(($listrouting) => {
+        cy.get('h3 > b').then(($listrouting) => {
             expect($listrouting).to.have.text('Transaction Config List')
         })
         cy.contains('New Account Transaction Config')
             .should('be.visible')
             .click();
         //Fill Form
-        cy.get('.modal-title').then(($form) => {
-            expect($form).to.have.text('New Account Transaction Config')
-        })
+        // cy.get('.modal-title').then(($form) => {
+        //     expect($form).to.have.text('New Account Transaction Config')
+        // })
         cy.get('select[name=ca_id]').select(this.userdata.institution_id);
         cy.get('input[name=username]').type(this.logindata.username);
         cy.get('input[name=token_time]').type('10');

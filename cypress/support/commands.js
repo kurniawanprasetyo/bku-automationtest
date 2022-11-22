@@ -49,16 +49,7 @@ Cypress.Commands.add('login', (username, password) => {
             expect($font).to.have.text('Login Account')
         })
     //Login as admin
-    cy.get('input[name=user]')
-        .should('be.visible')
-        .type(username);
-    cy.get('input[name=password]')
-        .should('be.visible')
-        .type(password);
-    cy.contains('Sign In')
-        .should('be.visible')
-        .then(($login) => {
-            expect($login).to.have.text('Sign In')
-        })
-        .click();
+    cy.get('[name="user"]').type(username);
+    cy.get('[name="password"]').type(password);
+    cy.contains('button','Sign In').click();
 })

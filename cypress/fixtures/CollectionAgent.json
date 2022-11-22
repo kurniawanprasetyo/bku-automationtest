@@ -7,8 +7,8 @@
     "feature" : "To Account",
     "mitra_id" : "Transferto",
     "destination_country" : "Indonesia",
-    "begin_date" : "2021-08-31",
-    "end_date" : "2022-08-31",
+    "begin_date" : "2021-09-01",
+    "end_date" : "2022-10-20",
     "email" : "user.cypress@artajasa.co.id",
     "destination_name" : "Cypress",
     "payer_id" : "765"

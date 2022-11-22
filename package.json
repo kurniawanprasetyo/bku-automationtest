@@ -18,6 +18,11 @@
   },
   "homepage": "https://gitlab.com/elangbayu/cypress-bku#readme",
   "devDependencies": {
-    "cypress": "^8.1.0"
+    "@types/lodash": "^4.14.171",
+    "cypress": "^8.7.0"
+  },
+  "dependencies": {
+    "cypress-react-selector": "^2.3.11",
+    "lodash": "^4.17.21"
   }
 }
